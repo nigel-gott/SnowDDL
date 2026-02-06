@@ -94,6 +94,12 @@ class BaseDataType(Enum):
         "default_properties": [],
     }
 
+    MAP = {
+        "base_name": "MAP",
+        "number_of_properties": 2,
+        "default_properties": ["VARIANT", "VARIANT"],
+    }
+
     ARRAY = {
         "base_name": "ARRAY",
         "number_of_properties": 0,
@@ -132,7 +138,7 @@ class BaseDataType(Enum):
 
 class DataType:
     data_type_re = compile(
-        r"^(?P<base_type>[a-z0-9_]+)(\((?P<val1>\d+)(,(?P<val2>\d+))?\)|\((?P<val1_vector>int|float),\s?(?P<val2_vector>\d+)\))?$",
+        r"^(?P<base_type>[a-z0-9_]+)(\((?P<val1>\d+|\w+)(,(?P<val2>\d+|\w+))?\)|\((?P<val1_vector>int|float),\s?(?P<val2_vector>\d+)\))?$",
         IGNORECASE,
     )
 
@@ -151,8 +157,12 @@ class DataType:
             self.val1 = str(m["val1_vector"]).upper()
             self.val2 = int(m["val2_vector"])
         else:
-            self.val1 = int(m["val1"]) if self.base_type.number_of_properties >= 1 else None
-            self.val2 = int(m["val2"]) if self.base_type.number_of_properties >= 2 else None
+            try:
+                self.val1 = int(m["val1"]) if self.base_type.number_of_properties >= 1 else None
+                self.val2 = int(m["val2"]) if self.base_type.number_of_properties >= 2 else None
+            except ValueError:
+                self.val1 = m["val1"] if self.base_type.number_of_properties >= 1 else None
+                self.val2 = m["val2"] if self.base_type.number_of_properties >= 2 else None
 
     @staticmethod
     def from_base_type(base_type: BaseDataType):
