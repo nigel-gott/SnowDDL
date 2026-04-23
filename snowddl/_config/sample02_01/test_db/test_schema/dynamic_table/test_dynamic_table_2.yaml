@@ -4,6 +4,3 @@ text: |-
 
 target_lag: downstream
 warehouse: dynamic_table_wh
-
-depends_on:
-  - test_dynamic_table_1

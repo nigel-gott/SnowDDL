@@ -2,6 +2,7 @@ from .abc_resolver import AbstractResolver, ResolveResult
 from .abc_role_resolver import AbstractRoleResolver
 from .abc_schema_object_resolver import AbstractSchemaObjectResolver
 from .account_params import AccountParameterResolver
+from .graph import CrossTypeGraphResolver
 from .aggregation_policy import AggregationPolicyResolver
 from .authentication_policy import AuthenticationPolicyResolver
 from .alert import AlertResolver
@@ -82,21 +83,17 @@ default_resolve_sequence = [
     StageResolver,
     StageFileResolver,
     SequenceResolver,
-    FunctionResolver,
     ExternalFunctionResolver,
-    ProcedureResolver,
     CloneTableResolver,
     TableResolver,
     EventTableResolver,
     HybridTableResolver,
     IcebergTableResolver,
-    DynamicTableResolver,
     ExternalTableResolver,
     PrimaryKeyResolver,
     UniqueKeyResolver,
     ForeignKeyResolver,
-    MaterializedViewResolver,
-    ViewResolver,
+    CrossTypeGraphResolver,
     SemanticViewResolver,
     PipeResolver,
     StreamResolver,
@@ -162,21 +159,17 @@ singledb_resolve_sequence = [
     StageResolver,
     StageFileResolver,
     SequenceResolver,
-    FunctionResolver,
     ExternalFunctionResolver,
-    ProcedureResolver,
     CloneTableResolver,
     TableResolver,
     EventTableResolver,
     HybridTableResolver,
     IcebergTableResolver,
-    DynamicTableResolver,
     ExternalTableResolver,
     PrimaryKeyResolver,
     UniqueKeyResolver,
     ForeignKeyResolver,
-    MaterializedViewResolver,
-    ViewResolver,
+    CrossTypeGraphResolver,
     SemanticViewResolver,
     PipeResolver,
     StreamResolver,

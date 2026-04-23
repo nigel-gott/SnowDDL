@@ -38,13 +38,6 @@ view_json_schema = {
         "change_tracking": {
             "type": "boolean"
         },
-        "depends_on": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "minItems": 1
-        },
         "comment": {
             "type": "string"
         },
@@ -165,9 +158,6 @@ class ViewParser(AbstractParser):
             columns=column_blueprints if column_blueprints else None,
             is_secure=f.params.get("is_secure", False),
             change_tracking=f.params.get("change_tracking", False),
-            depends_on=set(
-                build_schema_object_ident(self.env_prefix, v, f.database, f.schema) for v in f.params.get("depends_on", [])
-            ),
             comment=f.params.get("comment"),
         )
 

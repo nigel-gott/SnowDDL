@@ -37,8 +37,5 @@ text: |-
       f3.duration,
       f3.days_of_week
   FROM f3
-      JOIN airports dep ON (f3.departure_airport = dep.airport_code)
-      JOIN airports arr ON (f3.arrival_airport = arr.airport_code)
-
-depends_on:
-  - airports
+      JOIN ${{ env_prefix }}snowddl_db.bookings.airports dep ON (f3.departure_airport = dep.airport_code)
+      JOIN ${{ env_prefix }}snowddl_db.bookings.airports arr ON (f3.arrival_airport = arr.airport_code)
