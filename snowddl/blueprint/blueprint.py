@@ -225,7 +225,7 @@ class ForeignKeyBlueprint(SchemaObjectBlueprint):
     ref_columns: List[Ident]
 
 
-class FunctionBlueprint(SchemaObjectBlueprint):
+class FunctionBlueprint(SchemaObjectBlueprint, DependsOnMixin):
     full_name: SchemaObjectIdentWithArgs
     language: str
     body: Optional[str] = None
@@ -268,7 +268,7 @@ class JoinPolicyBlueprint(SchemaObjectBlueprint):
     references: List[JoinPolicyReference] = []
 
 
-class MaterializedViewBlueprint(SchemaObjectBlueprint):
+class MaterializedViewBlueprint(SchemaObjectBlueprint, DependsOnMixin):
     text: str
     columns: Optional[List[ViewColumn]] = None
     is_secure: bool = False
@@ -326,7 +326,7 @@ class PrimaryKeyBlueprint(SchemaObjectBlueprint):
     columns: List[Ident]
 
 
-class ProcedureBlueprint(SchemaObjectBlueprint):
+class ProcedureBlueprint(SchemaObjectBlueprint, DependsOnMixin):
     full_name: SchemaObjectIdentWithArgs
     language: str
     body: Optional[str] = None

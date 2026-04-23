@@ -14,6 +14,7 @@ from traceback import TracebackException
 
 from snowddl.blueprint import Ident, ObjectType
 from snowddl.config import SnowDDLConfig
+from snowddl.dependency_graph import CyclicDependencyError, DependencyGraphBuilder
 from snowddl.engine import SnowDDLEngine
 from snowddl.parser import default_parse_sequence, DirectoryScanner, PermissionModelParser, PlaceholderParser
 from snowddl.resolver import default_resolve_sequence, default_destroy_sequence
@@ -445,6 +446,13 @@ class BaseApp:
                 self.logger.warning(f"[{module_path}]: {''.join(TracebackException.from_exception(e).format())}")
                 self.logger.error("Execution halted due to error in programmatic config")
                 exit(1)
+
+        # Build cross-type dependency graph from SQL text; fail hard on cycles
+        try:
+            DependencyGraphBuilder(config).build()
+        except CyclicDependencyError as e:
+            self.logger.error(str(e))
+            exit(1)
 
         # Run validators after all parsers and programmatic configs
         for validator_cls in self.validate_sequence:

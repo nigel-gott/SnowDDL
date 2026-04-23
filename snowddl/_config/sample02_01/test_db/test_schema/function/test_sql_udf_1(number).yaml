@@ -1,0 +1,8 @@
+arguments:
+  x: NUMBER(0,19)
+
+returns: NUMBER(0,19)
+language: SQL
+
+body: |-
+  X * 2

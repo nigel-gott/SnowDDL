@@ -217,9 +217,6 @@ class DynamicTableParser(AbstractParser):
             cluster_by=f.params.get("cluster_by"),
             is_transient=f.params.get("is_transient", combined_params[f.database][f.schema].get("is_transient", False)),
             retention_time=f.params.get("retention_time", combined_params[f.database][f.schema].get("retention_time", None)),
-            depends_on=set(
-                build_schema_object_ident(self.env_prefix, d, f.database, f.schema) for d in f.params.get("depends_on", [])
-            ),
             comment=f.params.get("comment"),
         )
 

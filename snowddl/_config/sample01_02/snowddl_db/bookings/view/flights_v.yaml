@@ -20,9 +20,5 @@ text: |-
       CONVERT_TIMEZONE(arr.timezone, f.actual_arrival) AS actual_arrival_local,
       DATEDIFF('second', f.actual_departure, f.actual_arrival) AS actual_duration
   FROM flights f
-      JOIN airports dep ON (f.departure_airport = dep.airport_code)
-      JOIN airports arr ON (f.arrival_airport = arr.airport_code)
-
-
-depends_on:
-  - airports
+      JOIN ${{ env_prefix }}snowddl_db.bookings.airports dep ON (f.departure_airport = dep.airport_code)
+      JOIN ${{ env_prefix }}snowddl_db.bookings.airports arr ON (f.arrival_airport = arr.airport_code)
