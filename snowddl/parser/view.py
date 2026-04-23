@@ -38,6 +38,13 @@ view_json_schema = {
         "change_tracking": {
             "type": "boolean"
         },
+        "depends_on": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1
+        },
         "comment": {
             "type": "string"
         },

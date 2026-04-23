@@ -60,6 +60,13 @@ dynamic_table_json_schema = {
         "retention_time": {
             "type": "integer"
         },
+        "depends_on": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1
+        },
         "comment": {
             "type": "string"
         },
